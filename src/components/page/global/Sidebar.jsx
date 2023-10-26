@@ -1,0 +1,172 @@
+import { tokens } from "@/src/theme";
+import {
+  BarChartOutlined,
+  CalendarTodayOutlined,
+  ContactsOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  MapOutlined,
+  Menu as MenuIcon,
+  PeopleOutlined,
+  PersonOutlined,
+  PieChartOutlineOutlined,
+  ReceiptOutlined,
+  TimelineOutlined,
+} from "@mui/icons-material";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { useState } from "react";
+import { Menu, MenuItem, Sidebar as SidebarContainer } from "react-pro-sidebar";
+import { Link, useLocation } from "react-router-dom";
+
+const SectionTitle = ({ title }) => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  return (
+    <Typography
+      variant="h6"
+      component="div"
+      color={colors.grey[300]}
+      sx={{ pl: "20px", pt: "15px" }}
+    >
+      {title}
+    </Typography>
+  );
+};
+
+const Item = ({ title, to, icon }) => {
+  const location = useLocation();
+
+  return (
+    <MenuItem
+      active={location.pathname === to}
+      icon={icon}
+      component={<Link to={to} />}
+    >
+      <Typography>{title}</Typography>
+    </MenuItem>
+  );
+};
+
+export default function Sidebar() {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  return (
+    <SidebarContainer
+      collapsed={isCollapsed}
+      backgroundColor={colors.primary[400]}
+      style={{ border: "none" }}
+    >
+      <Menu
+        menuItemStyles={{
+          button: ({ active }) => {
+            return {
+              backgroundColor: "transparent !important",
+              color: `${
+                active ? colors.blueAccent[400] : colors.grey[100]
+              } !important`,
+              ":hover": {
+                color: `${colors.blueAccent[400]} !important`,
+              },
+            };
+          },
+        }}
+      >
+        {/* Title and Menu Toggler */}
+        <MenuItem
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          icon={isCollapsed ? <MenuIcon /> : undefined}
+          style={{
+            margin: "10px 0 20px",
+          }}
+        >
+          {!isCollapsed && (
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography
+                variant="h3"
+                color={colors.grey[100]}
+                textTransform="uppercase"
+              >
+                Admin
+              </Typography>
+              <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                <MenuIcon />
+              </IconButton>
+            </Box>
+          )}
+        </MenuItem>
+
+        {/* User */}
+        {!isCollapsed && (
+          <Box mb={2}>
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <img
+                src={`assets/user/naufal.png`}
+                width="100px"
+                height="100px"
+                alt="User Naufal Profile Picture"
+              />
+            </Box>
+            <Box textAlign="center">
+              <Typography
+                variant="h3"
+                color={colors.grey[100]}
+                fontWeight="bold"
+                sx={{ mt: 2.5, mb: 0.5 }}
+              >
+                Naufal Zufar
+              </Typography>
+              <Typography
+                variant="h5"
+                component="h2"
+                color={colors.greenAccent[500]}
+              >
+                Super Admin
+              </Typography>
+            </Box>
+          </Box>
+        )}
+
+        <Item title="Dashboard" to="/" icon={<HomeOutlined />} />
+
+        <SectionTitle title="Data" />
+        <Item title="Manage Team" to="/team" icon={<PeopleOutlined />} />
+        <Item
+          title="Contacts Information"
+          to="/contacts"
+          icon={<ContactsOutlined />}
+        />
+        <Item
+          title="Invoices Balances"
+          to="/invoices"
+          icon={<ReceiptOutlined />}
+        />
+
+        <SectionTitle title="Pages" />
+        <Item title="New User" to="/add-user" icon={<PersonOutlined />} />
+        <Item
+          title="Calendar"
+          to="/calendar"
+          icon={<CalendarTodayOutlined />}
+        />
+        <Item title="FAQ Page" to="/faq" icon={<HelpOutlineOutlined />} />
+
+        <SectionTitle title="Chart" />
+        <Item title="Bar Chart" to="/chart-bar" icon={<BarChartOutlined />} />
+        <Item
+          title="Pie Chart"
+          to="/chart-pie"
+          icon={<PieChartOutlineOutlined />}
+        />
+        <Item title="Line Chart" to="/chart-line" icon={<TimelineOutlined />} />
+        <Item title="Geography Chart" to="/chart-geo" icon={<MapOutlined />} />
+      </Menu>
+    </SidebarContainer>
+  );
+}
