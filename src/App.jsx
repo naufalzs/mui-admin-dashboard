@@ -3,6 +3,7 @@ import { ColorModeContext, useMode } from "./theme";
 import Topbar from "./components/page/global/Topbar";
 import Sidebar from "./components/page/global/Sidebar";
 import { BrowserRouter } from "react-router-dom";
+import { AppRoutes } from "./router/AppRoutes";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -16,6 +17,7 @@ function App() {
               <Sidebar />
               <main className="content">
                 <Topbar />
+                <AppRoutes />
               </main>
             </BrowserRouter>
           </div>
