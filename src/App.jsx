@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Topbar from "./components/page/global/Topbar";
 import Sidebar from "./components/page/global/Sidebar";
@@ -17,7 +17,9 @@ function App() {
               <Sidebar />
               <main className="content">
                 <Topbar />
-                <AppRoutes />
+                <Box p="20px">
+                  <AppRoutes />
+                </Box>
               </main>
             </BrowserRouter>
           </div>
