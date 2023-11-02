@@ -1,4 +1,4 @@
-export default function PieChart() {
+export default function PieChartPage() {
   return (
     <div>PieChart</div>
   )

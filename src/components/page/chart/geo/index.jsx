@@ -1,4 +1,4 @@
-export default function GeoChart() {
+export default function GeoChartPage() {
   return (
     <div>GeoChart</div>
   )

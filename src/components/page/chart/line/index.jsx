@@ -1,4 +1,4 @@
-export default function LineChart() {
+export default function LineChartPage() {
   return (
     <div>LineChart</div>
   )
