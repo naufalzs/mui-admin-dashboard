@@ -13,7 +13,13 @@ import {
   ReceiptOutlined,
   TimelineOutlined,
 } from "@mui/icons-material";
-import { Box, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useState } from "react";
 import { Menu, MenuItem, Sidebar as SidebarContainer } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
@@ -48,19 +54,21 @@ const Item = ({ title, to, icon }) => {
   );
 };
 
-export default function Sidebar() {
+export default function Sidebar({ toggleSidebar, setToggleSidebar }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const isTablet = useMediaQuery((theme)=> theme.breakpoints.down("lg"))
-  const isTabletOnly = useMediaQuery((theme)=> theme.breakpoints.only("sm"))
+  const isTablet = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isTabletOnly = useMediaQuery((theme) => theme.breakpoints.only("sm"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const [isCollapsed, setIsCollapsed] = useState(isTablet ? true : false);
-
 
   return (
     <SidebarContainer
       breakPoint="sm"
       collapsed={isCollapsed}
+      toggled={toggleSidebar}
+      onBackdropClick={() => setToggleSidebar(!toggleSidebar)}
       backgroundColor={colors.primary[400]}
       style={{ border: "none" }}
     >
@@ -80,32 +88,42 @@ export default function Sidebar() {
         }}
       >
         {/* Title and Menu Toggler */}
-        <MenuItem
-          onClick={isTabletOnly ? undefined : () => setIsCollapsed(!isCollapsed)}
-          icon={isCollapsed ? <MenuIcon /> : undefined}
-          style={{
-            margin: "10px 0 20px",
-          }}
-        >
-          {!isCollapsed && (
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography
-                variant="h3"
-                color={colors.grey[100]}
-                textTransform="uppercase"
+        {!isMobile && (
+          <MenuItem
+            onClick={
+              isTabletOnly ? undefined : () => setIsCollapsed(!isCollapsed)
+            }
+            icon={isCollapsed ? <MenuIcon /> : undefined}
+            style={{
+              margin: "10px 0 20px",
+            }}
+          >
+            {!isCollapsed && (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
               >
-                Admin
-              </Typography>
-              <IconButton onClick={isTabletOnly ? undefined : () => setIsCollapsed(!isCollapsed)}>
-                <MenuIcon />
-              </IconButton>
-            </Box>
-          )}
-        </MenuItem>
+                <Typography
+                  variant="h3"
+                  color={colors.grey[100]}
+                  textTransform="uppercase"
+                >
+                  Admin
+                </Typography>
+                <IconButton
+                  onClick={
+                    isTabletOnly
+                      ? undefined
+                      : () => setIsCollapsed(!isCollapsed)
+                  }
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Box>
+            )}
+          </MenuItem>
+        )}
 
         {/* User */}
         {!isCollapsed && (
@@ -162,15 +180,31 @@ export default function Sidebar() {
         />
         <Item title="FAQ Page" to="/faq" icon={<HelpOutlineOutlined />} />
 
-        <SectionTitle title="Chart" />
-        <Item title="Bar Chart" to="/chart-bar" icon={<BarChartOutlined />} />
-        <Item
-          title="Pie Chart"
-          to="/chart-pie"
-          icon={<PieChartOutlineOutlined />}
-        />
-        <Item title="Line Chart" to="/chart-line" icon={<TimelineOutlined />} />
-        <Item title="Geography Chart" to="/chart-geo" icon={<MapOutlined />} />
+        {!isMobile && (
+          <>
+            <SectionTitle title="Chart" />
+            <Item
+              title="Bar Chart"
+              to="/chart-bar"
+              icon={<BarChartOutlined />}
+            />
+            <Item
+              title="Pie Chart"
+              to="/chart-pie"
+              icon={<PieChartOutlineOutlined />}
+            />
+            <Item
+              title="Line Chart"
+              to="/chart-line"
+              icon={<TimelineOutlined />}
+            />
+            <Item
+              title="Geography Chart"
+              to="/chart-geo"
+              icon={<MapOutlined />}
+            />
+          </>
+        )}
       </Menu>
     </SidebarContainer>
   );
