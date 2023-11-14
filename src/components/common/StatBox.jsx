@@ -2,7 +2,7 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { tokens } from "@/src/theme";
 import ProgressCircle from "./ProgressCircle";
 
-export default function StatBox({ title, subtitle, icon, progress, increase }) {
+export default function StatBox({ total, title, icon, progress, increase }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isTabletOnly = useMediaQuery((theme) => theme.breakpoints.only("sm"));
@@ -25,7 +25,7 @@ export default function StatBox({ title, subtitle, icon, progress, increase }) {
             fontWeight="bold"
             color={colors.grey[100]}
           >
-            {title}
+            {total}
           </Typography>
         </Box>
 
@@ -42,7 +42,7 @@ export default function StatBox({ title, subtitle, icon, progress, increase }) {
           variant={isMobile ? "h6" : "h5"}
           color={colors.greenAccent[500]}
         >
-          {subtitle}
+          {title}
         </Typography>
         <Typography
           variant={isTabletOnly ? "h6" : "h5"}
