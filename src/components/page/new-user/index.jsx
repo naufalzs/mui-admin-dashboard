@@ -34,6 +34,21 @@ export default function NewUser() {
   return (
     <Box>
       <Header title="create user" subtitle="Create a New User Profile" />
+      {isMobile && (
+        <Box
+          component="img"
+          src="/assets/interview.jpg"
+          alt="interviewing"
+          sx={{
+            width: "100%",
+            mb: "30px",
+            objectFit: "cover",
+            borderRadius: "10px",
+            transform: "scale(-1, 1)",
+          }}
+        />
+      )}
+
       <Box display="grid" gridTemplateColumns={!isMobile && "70% 30%"}>
         <Formik
           initialValues={initialValues}
@@ -74,7 +89,6 @@ export default function NewUser() {
                 <TextField
                   fullWidth
                   color="secondary"
-
                   name="lastName"
                   variant="filled"
                   type="text"
@@ -89,7 +103,6 @@ export default function NewUser() {
                 <TextField
                   fullWidth
                   color="secondary"
-
                   name="email"
                   variant="filled"
                   type="text"
@@ -104,7 +117,6 @@ export default function NewUser() {
                 <TextField
                   fullWidth
                   color="secondary"
-
                   name="contact"
                   variant="filled"
                   type="text"
@@ -119,7 +131,6 @@ export default function NewUser() {
                 <TextField
                   fullWidth
                   color="secondary"
-
                   name="address1"
                   variant="filled"
                   type="text"
@@ -134,7 +145,6 @@ export default function NewUser() {
                 <TextField
                   fullWidth
                   color="secondary"
-
                   name="address2"
                   variant="filled"
                   type="text"
@@ -148,26 +158,34 @@ export default function NewUser() {
                 />
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
-                <Button type="submit" color="secondary" variant="contained">
+                <Button
+                  type="submit"
+                  color="secondary"
+                  variant="contained"
+                  sx={{ width: isMobile ? "100%" : "auto" }}
+                >
                   Submit
                 </Button>
               </Box>
             </form>
           )}
         </Formik>
-        <Box pl="20px">
-          <Box
-            component="img"
-            src="/assets/interview.jpg"
-            alt="interviewing"
-            sx={{
-              width: "100%",
-              objectFit: "cover",
-              borderRadius: "10px",
-              transform: "scale(-1, 1)"
-            }}
-          />
-        </Box>
+
+        {!isMobile && (
+          <Box pl="20px">
+            <Box
+              component="img"
+              src="/assets/interview.jpg"
+              alt="interviewing"
+              sx={{
+                width: "100%",
+                objectFit: "cover",
+                borderRadius: "10px",
+                transform: "scale(-1, 1)",
+              }}
+            />
+          </Box>
+        )}
       </Box>
     </Box>
   );
