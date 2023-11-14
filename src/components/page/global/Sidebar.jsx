@@ -13,7 +13,7 @@ import {
   ReceiptOutlined,
   TimelineOutlined,
 } from "@mui/icons-material";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import { Menu, MenuItem, Sidebar as SidebarContainer } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
@@ -51,10 +51,15 @@ const Item = ({ title, to, icon }) => {
 export default function Sidebar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const isTablet = useMediaQuery((theme)=> theme.breakpoints.down("lg"))
+  const isTabletOnly = useMediaQuery((theme)=> theme.breakpoints.only("sm"))
+
+  const [isCollapsed, setIsCollapsed] = useState(isTablet ? true : false);
+
 
   return (
     <SidebarContainer
+      breakPoint="sm"
       collapsed={isCollapsed}
       backgroundColor={colors.primary[400]}
       style={{ border: "none" }}
@@ -76,7 +81,7 @@ export default function Sidebar() {
       >
         {/* Title and Menu Toggler */}
         <MenuItem
-          onClick={() => setIsCollapsed(!isCollapsed)}
+          onClick={isTabletOnly ? undefined : () => setIsCollapsed(!isCollapsed)}
           icon={isCollapsed ? <MenuIcon /> : undefined}
           style={{
             margin: "10px 0 20px",
@@ -95,7 +100,7 @@ export default function Sidebar() {
               >
                 Admin
               </Typography>
-              <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+              <IconButton onClick={isTabletOnly ? undefined : () => setIsCollapsed(!isCollapsed)}>
                 <MenuIcon />
               </IconButton>
             </Box>

@@ -1,4 +1,11 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Header from "../../common/Header";
 import { tokens } from "@/src/theme";
 import {
@@ -18,6 +25,7 @@ import GeoChart from "../../common/GeoChart";
 export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isTablet = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Box>
@@ -128,7 +136,7 @@ export default function Dashboard() {
 
         {/* Row 2 */}
         <Box
-          gridColumn="span 8"
+          gridColumn={isTablet ? "span 12" : "span 8"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -172,7 +180,7 @@ export default function Dashboard() {
 
         {/* transaction */}
         <Box
-          gridColumn="span 4"
+          gridColumn={isTablet ? "span 6" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
@@ -231,7 +239,7 @@ export default function Dashboard() {
 
         {/* Row 3 */}
         <Box
-          gridColumn="span 4"
+          gridColumn={isTablet ? "span 6" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"
@@ -258,7 +266,7 @@ export default function Dashboard() {
         </Box>
 
         <Box
-          gridColumn="span 4"
+          gridColumn={isTablet ? "span 6" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -275,7 +283,7 @@ export default function Dashboard() {
         </Box>
 
         <Box
-          gridColumn="span 4"
+          gridColumn={isTablet ? "span 6 " : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"
