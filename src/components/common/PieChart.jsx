@@ -11,30 +11,15 @@ export default function PieChart({ isDashboard = false }) {
     <ResponsivePie
       data={data}
       theme={{
-        axis: {
-          domain: {
-            line: {
-              stroke: colors.grey[100],
-            },
-          },
-          legend: {
-            text: {
-              fill: colors.grey[100],
-            },
-          },
-          ticks: {
-            line: {
-              stroke: colors.grey[100],
-              strokeWidth: 1,
-            },
-            text: {
-              fill: colors.grey[100],
-            },
+        labels: {
+          text: {
+            fontSize: 18,
           },
         },
         legends: {
           text: {
             fill: colors.grey[100],
+            fontSize: 18,
           },
         },
         tooltip: {
@@ -94,7 +79,7 @@ export default function PieChart({ isDashboard = false }) {
           itemsSpacing: 0,
           itemWidth: 100,
           itemHeight: 18,
-          itemTextColor: colors.grey[100],
+          itemTextColor: colors.grey[300],
           itemDirection: "left-to-right",
           itemOpacity: 1,
           symbolSize: 18,
@@ -103,7 +88,7 @@ export default function PieChart({ isDashboard = false }) {
             {
               on: "hover",
               style: {
-                itemTextColor: "#000",
+                itemTextColor: colors.grey[100],
               },
             },
           ],

@@ -13,32 +13,6 @@ export default function GeoChart({ isDashboard = false }) {
       data={data}
       features={geoFeatures.features}
       theme={{
-        axis: {
-          domain: {
-            line: {
-              stroke: colors.grey[100],
-            },
-          },
-          legend: {
-            text: {
-              fill: colors.grey[100],
-            },
-          },
-          ticks: {
-            line: {
-              stroke: colors.grey[100],
-              strokeWidth: 1,
-            },
-            text: {
-              fill: colors.grey[100],
-            },
-          },
-        },
-        legends: {
-          text: {
-            fill: colors.grey[100],
-          },
-        },
         tooltip: {
           basic: {
             color: colors.primary[500],
@@ -54,7 +28,7 @@ export default function GeoChart({ isDashboard = false }) {
       projectionTranslation={isDashboard ? [0.49, 0.6] : [0.5, 0.5]}
       projectionRotation={[0, 0, 0]}
       borderWidth={1.5}
-      borderColor="#ffffff"
+      borderColor={colors.grey[100]}
       legends={
         !isDashboard
           ? [
@@ -68,14 +42,14 @@ export default function GeoChart({ isDashboard = false }) {
                 itemWidth: 94,
                 itemHeight: 18,
                 itemDirection: "left-to-right",
-                itemTextColor: colors.grey[100],
+                itemTextColor: colors.grey[300],
                 itemOpacity: 0.85,
                 symbolSize: 18,
                 effects: [
                   {
                     on: "hover",
                     style: {
-                      itemTextColor: "#fff",
+                      itemTextColor: colors.grey[100],
                       itemOpacity: 1,
                     },
                   },

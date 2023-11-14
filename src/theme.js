@@ -60,6 +60,9 @@ export const tokens = (mode) => ({
           800: "#2a2d64",
           900: "#151632",
         },
+        background: {
+          default: "#141b2d",
+        },
       }
     : {
         grey: {
@@ -117,6 +120,9 @@ export const tokens = (mode) => ({
           800: "#c3c6fd",
           900: "#e1e2fe",
         },
+        background: {
+          default: "#fcfcfc",
+        },
       }),
 });
 
@@ -127,65 +133,51 @@ export const themeSettings = (mode) => {
   return {
     palette: {
       mode: mode,
-      ...(mode === "dark"
-        ? {
-            primary: {
-              main: colors.primary[500],
-            },
-            secondary: {
-              main: colors.greenAccent[500],
-            },
-            neutral: {
-              dark: colors.grey[700],
-              main: colors.grey[500],
-              light: colors.grey[100],
-            },
-            background: {
-              default: colors.primary[500],
-            },
-          }
-        : {
-            primary: {
-              main: colors.primary[100],
-            },
-            secondary: {
-              main: colors.greenAccent[500],
-            },
-            neutral: {
-              dark: colors.grey[700],
-              main: colors.grey[500],
-              light: colors.grey[100],
-            },
-            background: {
-              default: "#fcfcfc",
-            },
-          }),
+      primary: {
+        main: mode === "dark" ? colors.primary[500] : colors.primary[100],
+      },
+      secondary: {
+        main: colors.greenAccent[500],
+      },
+      neutral: {
+        dark: colors.grey[700],
+        main: colors.grey[500],
+        light: colors.grey[100],
+      },
+      background: {
+        default: colors.background.default,
+      },
+      button: {
+        dark: colors.blueAccent[800],
+        main: colors.blueAccent[700],
+        light: colors.blueAccent[500],
+      },
     },
     typography: {
-      fontFamily: ["Source Sans 3", "sans-serif"].join(","),
+      fontFamily: ["'Source Sans 3'", "sans-serif"].join(","),
       fontSize: 12,
       h1: {
-        fontFamily: ["Source Sans 3", "sans-serif"].join(","),
+        fontFamily: ["'Source Sans 3'", "sans-serif"].join(","),
         fontSize: 40,
       },
       h2: {
-        fontFamily: ["Source Sans 3", "sans-serif"].join(","),
+        fontFamily: ["'Source Sans 3'", "sans-serif"].join(","),
         fontSize: 32,
       },
       h3: {
-        fontFamily: ["Source Sans 3", "sans-serif"].join(","),
+        fontFamily: ["'Source Sans 3'", "sans-serif"].join(","),
         fontSize: 24,
       },
       h4: {
-        fontFamily: ["Source Sans 3", "sans-serif"].join(","),
+        fontFamily: ["'Source Sans 3'", "sans-serif"].join(","),
         fontSize: 20,
       },
       h5: {
-        fontFamily: ["Source Sans 3", "sans-serif"].join(","),
+        fontFamily: ["'Source Sans 3'", "sans-serif"].join(","),
         fontSize: 16,
       },
       h6: {
-        fontFamily: ["Source Sans 3", "sans-serif"].join(","),
+        fontFamily: ["'Source Sans 3'", "sans-serif"].join(","),
         fontSize: 14,
       },
     },

@@ -25,9 +25,9 @@ export default function Dashboard() {
         <Header title="dashboard" subtitle="Welcome to your Dashboard" />
 
         <Button
+          color="button"
+          variant="contained"
           sx={{
-            backgroundColor: colors.blueAccent[700],
-            color: colors.grey[100],
             fontSize: "14px",
             fontWeight: "bold",
             padding: "10px 20px",
@@ -180,7 +180,7 @@ export default function Dashboard() {
           <Box
             display="flex"
             alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
+            borderBottom={`4px solid ${colors.background.default}`}
             color={colors.grey[100]}
             p="15px"
           >
@@ -198,7 +198,7 @@ export default function Dashboard() {
               display="flex"
               alignItems="center"
               justifyContent="space-between"
-              borderBottom={`4px solid ${colors.primary[500]}`}
+              borderBottom={`4px solid ${colors.background.default}`}
               color={colors.grey[100]}
               p="15px"
             >
@@ -218,6 +218,8 @@ export default function Dashboard() {
               <Box
                 width="65px"
                 backgroundColor={colors.greenAccent[500]}
+                fontWeight="600"
+                color={colors.primary[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
