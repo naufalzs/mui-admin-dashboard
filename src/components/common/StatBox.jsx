@@ -6,6 +6,7 @@ export default function StatBox({ title, subtitle, icon, progress, increase }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isTabletOnly = useMediaQuery((theme) => theme.breakpoints.only("sm"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
     <Box
@@ -14,13 +15,13 @@ export default function StatBox({ title, subtitle, icon, progress, increase }) {
       display="flex"
       flexDirection="column"
       justifyContent="flex-start"
-      p={isTabletOnly ? "20px" : "30px"}
+      p={isMobile ? "15px" : isTabletOnly ? "20px" : "30px"}
     >
       <Box display="flex" justifyContent="space-between">
         <Box>
           {icon}
           <Typography
-            variant={isTabletOnly ? "h5" : "h4"}
+            variant={isMobile ? "h6" : isTabletOnly ? "h5" : "h4"}
             fontWeight="bold"
             color={colors.grey[100]}
           >
@@ -31,14 +32,14 @@ export default function StatBox({ title, subtitle, icon, progress, increase }) {
         <Box>
           <ProgressCircle
             progress={progress}
-            size={isTabletOnly ? "30" : "40"}
+            size={isMobile ? "28" : isTabletOnly ? "30" : "40"}
           />
         </Box>
       </Box>
 
-      <Box display="flex" justifyContent="space-between">
+      <Box display="flex" flexDirection={isMobile ? "column" : "row"} justifyContent="space-between">
         <Typography
-          variant={isTabletOnly ? "h6" : "h5"}
+          variant={isMobile ? "h6" : "h5"}
           color={colors.greenAccent[500]}
         >
           {subtitle}
@@ -47,6 +48,9 @@ export default function StatBox({ title, subtitle, icon, progress, increase }) {
           variant={isTabletOnly ? "h6" : "h5"}
           fontStyle="italic"
           color={colors.greenAccent[600]}
+          sx={{
+            alignSelf: "flex-end"
+          }}
         >
           {increase}
         </Typography>

@@ -1,13 +1,20 @@
 import { tokens } from "@/src/theme";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 export default function Header({ title, subtitle }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
-    <Box mb="30px">
-      <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" textTransform="uppercase" sx={{ mb: "5px" }}>
+    <Box mb={isMobile ? "20px" : "30px"}>
+      <Typography
+        variant="h2"
+        color={colors.grey[100]}
+        fontWeight="bold"
+        textTransform="uppercase"
+        sx={{ mb: "5px" }}
+      >
         {title}
       </Typography>
       <Typography variant="h5" color={colors.greenAccent[400]}>

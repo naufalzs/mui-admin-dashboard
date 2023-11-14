@@ -7,7 +7,8 @@ import { geoFeatures } from "@/src/data/mockGeoFeatures";
 export default function GeoChart({ isDashboard = false }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const isTabletOnly = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isTablet = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
     <ResponsiveChoropleth
@@ -25,7 +26,8 @@ export default function GeoChart({ isDashboard = false }) {
       unknownColor="#666666"
       label="properties.name"
       valueFormat=".2s"
-      projectionScale={isDashboard ? 40 : isTabletOnly ? 100 : 150}
+      // projectionScale={isDashboard ? 40 : isTabletOnly ? 100 : 150}
+      projectionScale={!isDashboard ? 150 : isMobile ? 33 : isTablet ? 40 : 100}
       projectionTranslation={isDashboard ? [0.49, 0.6] : [0.5, 0.5]}
       projectionRotation={[0, 0, 0]}
       borderWidth={1.5}

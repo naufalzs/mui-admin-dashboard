@@ -26,10 +26,17 @@ export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isTablet = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
     <Box>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box
+        display="flex"
+        flexDirection={isMobile ? "column" : "row"}
+        justifyContent="space-between"
+        alignItems={isMobile ? "flex-start" : "center"}
+        mb={isMobile && 3}
+      >
         <Header title="dashboard" subtitle="Welcome to your Dashboard" />
 
         <Button
@@ -55,7 +62,7 @@ export default function Dashboard() {
       >
         {/* Row 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn={isMobile ? "span 6" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           justifyContent="center"
@@ -75,7 +82,7 @@ export default function Dashboard() {
         </Box>
 
         <Box
-          gridColumn="span 3"
+          gridColumn={isMobile ? "span 6" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           justifyContent="center"
@@ -95,7 +102,7 @@ export default function Dashboard() {
         </Box>
 
         <Box
-          gridColumn="span 3"
+          gridColumn={isMobile ? "span 6" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           justifyContent="center"
@@ -115,7 +122,7 @@ export default function Dashboard() {
         </Box>
 
         <Box
-          gridColumn="span 3"
+          gridColumn={isMobile ? "span 6" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           justifyContent="center"
@@ -139,6 +146,10 @@ export default function Dashboard() {
           gridColumn={isTablet ? "span 12" : "span 8"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
+          sx={{
+            overflowX: isMobile ? "scroll" : "hidden",
+            overflowY: "hidden",
+          }}
         >
           <Box
             mt="25px"
@@ -173,14 +184,14 @@ export default function Dashboard() {
             </Box>
           </Box>
 
-          <Box height="250px" m="-20px 0 0 0 ">
+          <Box width={isMobile ? "680px" : "auto"} height="250px" m="-20px 0 0 0 ">
             <LineChart isDashboard={true} />
           </Box>
         </Box>
 
         {/* transaction */}
         <Box
-          gridColumn={isTablet ? "span 6" : "span 4"}
+          gridColumn={isMobile ? "span 12" : isTablet ? "span 6" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
@@ -239,7 +250,7 @@ export default function Dashboard() {
 
         {/* Row 3 */}
         <Box
-          gridColumn={isTablet ? "span 6" : "span 4"}
+          gridColumn={isMobile ? "span 12" : isTablet ? "span 6" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"
@@ -253,7 +264,7 @@ export default function Dashboard() {
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle size="125" />
+            <ProgressCircle size={isMobile ? "100" : "125"} />
             <Typography
               variant="h5"
               color={colors.greenAccent[500]}
@@ -261,14 +272,18 @@ export default function Dashboard() {
             >
               $48,352 revenue generated
             </Typography>
-            <Typography>Inclued extra misc expenditures and costs</Typography>
+            <Typography>Include extra misc expenditures and costs</Typography>
           </Box>
         </Box>
 
         <Box
-          gridColumn={isTablet ? "span 6" : "span 4"}
+          gridColumn={isMobile ? "span 12" : isTablet ? "span 6" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
+          sx={{
+            overflowX: isMobile ? "scroll" : "hidden",
+            overflowY: "hidden",
+          }}
         >
           <Typography
             variant="h5"
@@ -277,13 +292,13 @@ export default function Dashboard() {
           >
             Sales Quantity
           </Typography>
-          <Box height="250px" mt="-20px">
+          <Box width={isMobile ? "380px" : "auto"} height="250px" mt="-20px">
             <BarChart isDashboard={true} />
           </Box>
         </Box>
 
         <Box
-          gridColumn={isTablet ? "span 6 " : "span 4"}
+          gridColumn={isMobile ? "span 12" : isTablet ? "span 6 " : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"

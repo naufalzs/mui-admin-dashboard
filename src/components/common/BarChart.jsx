@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { tokens } from "@/src/theme";
 import { ResponsiveBar } from "@nivo/bar";
 import { mockBarData as data } from "@/src/data/mockData";
@@ -6,6 +6,7 @@ import { mockBarData as data } from "@/src/data/mockData";
 export default function BarChart({ isDashboard = false }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
     <ResponsiveBar
@@ -45,7 +46,7 @@ export default function BarChart({ isDashboard = false }) {
       }}
       keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
       indexBy="country"
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+      margin={{ top: 50, right: isMobile ? 30 : 130, bottom: 50, left: isMobile ? 150 : 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
@@ -119,7 +120,7 @@ export default function BarChart({ isDashboard = false }) {
           anchor: "bottom-right",
           direction: "column",
           justify: false,
-          translateX: 120,
+          translateX: isMobile ? -220 : 120,
           translateY: 0,
           itemsSpacing: 2,
           itemWidth: 100,
