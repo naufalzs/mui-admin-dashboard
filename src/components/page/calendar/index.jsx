@@ -6,6 +6,7 @@ import {
   ListItem,
   ListItemText,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import Header from "../../common/Header";
@@ -23,6 +24,8 @@ export default function CalendarPage() {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   const [currentEvents, setCurrentEvents] = useState([
     {
       id: "12315",
@@ -73,16 +76,31 @@ export default function CalendarPage() {
     <Box>
       <Header title="calendar" subtitle="Full Calendar Interactive Page" />
 
-      <Box display="flex" justifyContent="space-between">
+      <Box
+        display="flex"
+        flexDirection={isMobile ? "column" : "row"}
+        justifyContent="space-between"
+      >
         {/* Calendar Sidebar / Event Placeholder */}
         <Box
           flex="1 1 20%"
           bgcolor={colors.primary[400]}
           p="15px"
           borderRadius="4px"
+          mb={isMobile && 3}
+          sx={{
+            overflowX: "scroll",
+            overflowY: "hidden",
+          }}
         >
           <Typography variant="h5">Events</Typography>
-          <List>
+          <List
+            sx={{
+              width: isMobile ? "max-content" : "auto",
+              display: isMobile ? "flex" : "block",
+              gap: "20px",
+            }}
+          >
             {currentEvents.map((event) => (
               <ListItem
                 key={event.id}
@@ -133,11 +151,26 @@ export default function CalendarPage() {
               interactionPlugin,
             ]}
             initialView="dayGridMonth"
-            headerToolbar={{
-              left: "dayGridMonth,timeGridWeek,listMonth",
-              center: "title",
-              right: "today prev,next",
-            }}
+            headerToolbar={
+              isMobile
+                ? {
+                    left: "title",
+                    center: "",
+                    right: "today,prev,next",
+                  }
+                : {
+                    left: "dayGridMonth,timeGridWeek,listMonth",
+                    center: "title",
+                    right: "today prev,next",
+                  }
+            }
+            footerToolbar={
+              isMobile
+                ? {
+                    left: "dayGridMonth,timeGridWeek,listMonth",
+                  }
+                : undefined
+            }
             editable={true}
             selectable={true}
             selectMirror={true}
