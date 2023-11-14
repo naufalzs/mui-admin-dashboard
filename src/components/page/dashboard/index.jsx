@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Icon,
   IconButton,
   Typography,
   useMediaQuery,
@@ -8,16 +9,10 @@ import {
 } from "@mui/material";
 import Header from "../../common/Header";
 import { tokens } from "@/src/theme";
-import {
-  DownloadOutlined,
-  Email,
-  PersonAdd,
-  PointOfSale,
-  Traffic,
-} from "@mui/icons-material";
+import { DownloadOutlined } from "@mui/icons-material";
 import StatBox from "../../common/StatBox";
 import LineChart from "../../common/LineChart";
-import { mockTransactions } from "@/src/data/mockData";
+import { mockDataDashboard, mockTransactions } from "@/src/data/mockData";
 import ProgressCircle from "../../common/ProgressCircle";
 import BarChart from "../../common/BarChart";
 import GeoChart from "../../common/GeoChart";
@@ -61,85 +56,28 @@ export default function Dashboard() {
         gap="20px"
       >
         {/* Row 1 */}
-        <Box
-          gridColumn={isMobile ? "span 6" : "span 3"}
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
-            icon={
-              <Email
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-
-        <Box
-          gridColumn={isMobile ? "span 6" : "span 3"}
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.5"
-            increase="+21%"
-            icon={
-              <PointOfSale
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-
-        <Box
-          gridColumn={isMobile ? "span 6" : "span 3"}
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <StatBox
-            title="32,441"
-            subtitle="New Clients"
-            progress="0.3"
-            increase="+5%"
-            icon={
-              <PersonAdd
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-
-        <Box
-          gridColumn={isMobile ? "span 6" : "span 3"}
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <StatBox
-            title="1,325,135"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <Traffic
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
+        {mockDataDashboard.map((stats) => (
+          <Box
+            key={stats.id}
+            gridColumn={isMobile ? "span 6" : "span 3"}
+            backgroundColor={colors.primary[400]}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <StatBox
+              title={stats.title}
+              total={stats.total}
+              progress={stats.progress}
+              increase={stats.increase}
+              icon={
+                <Icon sx={{ color: colors.greenAccent[600], fontSize: "26px" }}>
+                  {stats.icon}
+                </Icon>
+              }
+            />
+          </Box>
+        ))}
 
         {/* Row 2 */}
         <Box
@@ -184,7 +122,11 @@ export default function Dashboard() {
             </Box>
           </Box>
 
-          <Box width={isMobile ? "680px" : "auto"} height="250px" m="-20px 0 0 0 ">
+          <Box
+            width={isMobile ? "680px" : "auto"}
+            height="250px"
+            m="-20px 0 0 0 "
+          >
             <LineChart isDashboard={true} />
           </Box>
         </Box>

@@ -1,5 +1,40 @@
 import { tokens } from "../theme";
 
+export const mockDataDashboard = [
+  {
+    id: 1,
+    title: "Emails Sent",
+    total: "12,361",
+    progress: "0.75",
+    increase: "+14%",
+    icon: "mail",
+  },
+  {
+    id: 2,
+    title: "Sales Obtained",
+    total: "431,225",
+    progress: "0.5",
+    increase: "+21%",
+    icon: "point_of_sale",
+  },
+  {
+    id: 3,
+    title: "New Clients",
+    total: "32,441",
+    progress: "0.3",
+    increase: "+5%",
+    icon: "person_add",
+  },
+  {
+    id: 4,
+    title: "Traffic Received",
+    total: "1,325,135",
+    progress: "0.80",
+    increase: "+43%",
+    icon: "traffic",
+  },
+];
+
 export const mockDataTeam = [
   {
     id: 1,
