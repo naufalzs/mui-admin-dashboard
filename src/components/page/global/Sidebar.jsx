@@ -1,20 +1,9 @@
+import { navigationData } from "@/src/data/navigationData";
 import { tokens } from "@/src/theme";
-import {
-  BarChartOutlined,
-  CalendarTodayOutlined,
-  ContactsOutlined,
-  HelpOutlineOutlined,
-  HomeOutlined,
-  MapOutlined,
-  Menu as MenuIcon,
-  PeopleOutlined,
-  PersonOutlined,
-  PieChartOutlineOutlined,
-  ReceiptOutlined,
-  TimelineOutlined,
-} from "@mui/icons-material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 import {
   Box,
+  Icon,
   IconButton,
   Typography,
   useMediaQuery,
@@ -27,6 +16,8 @@ import { Link, useLocation } from "react-router-dom";
 const SectionTitle = ({ title }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  if (title === "") return <></>;
 
   return (
     <Typography
@@ -46,7 +37,7 @@ const Item = ({ title, to, icon }) => {
   return (
     <MenuItem
       active={location.pathname === to}
-      icon={icon}
+      icon={<Icon baseClassName="material-icons-outlined">{icon}</Icon>}
       component={<Link to={to} />}
     >
       <Typography>{title}</Typography>
@@ -62,6 +53,15 @@ export default function Sidebar({ toggleSidebar, setToggleSidebar }) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const [isCollapsed, setIsCollapsed] = useState(isTablet ? true : false);
+
+  const navigationList = navigationData.map((navGroup) => (
+    <Box key={navGroup.id}>
+      <SectionTitle title={navGroup.title} />
+      {navGroup.list.map((nav) => (
+        <Item key={nav.id} title={nav.title} to={nav.to} icon={nav.icon} />
+      ))}
+    </Box>
+  ));
 
   return (
     <SidebarContainer
@@ -156,55 +156,7 @@ export default function Sidebar({ toggleSidebar, setToggleSidebar }) {
           </Box>
         )}
 
-        <Item title="Dashboard" to="/" icon={<HomeOutlined />} />
-
-        <SectionTitle title="Data" />
-        <Item title="Manage Team" to="/team" icon={<PeopleOutlined />} />
-        <Item
-          title="Contacts Information"
-          to="/contacts"
-          icon={<ContactsOutlined />}
-        />
-        <Item
-          title="Invoices Balances"
-          to="/invoices"
-          icon={<ReceiptOutlined />}
-        />
-
-        <SectionTitle title="Pages" />
-        <Item title="New User" to="/add-user" icon={<PersonOutlined />} />
-        <Item
-          title="Calendar"
-          to="/calendar"
-          icon={<CalendarTodayOutlined />}
-        />
-        <Item title="FAQ Page" to="/faq" icon={<HelpOutlineOutlined />} />
-
-        {!isMobile && (
-          <>
-            <SectionTitle title="Chart" />
-            <Item
-              title="Bar Chart"
-              to="/chart-bar"
-              icon={<BarChartOutlined />}
-            />
-            <Item
-              title="Pie Chart"
-              to="/chart-pie"
-              icon={<PieChartOutlineOutlined />}
-            />
-            <Item
-              title="Line Chart"
-              to="/chart-line"
-              icon={<TimelineOutlined />}
-            />
-            <Item
-              title="Geography Chart"
-              to="/chart-geo"
-              icon={<MapOutlined />}
-            />
-          </>
-        )}
+        {navigationList}
       </Menu>
     </SidebarContainer>
   );
