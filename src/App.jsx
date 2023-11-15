@@ -26,6 +26,7 @@ function App() {
                 setToggleSidebar={setToggleSidebar}
               />
               <Box sx={{
+                flexGrow: 1,
                 overflowX: "hidden",
                 overflowY: "auto",
                 "&::-webkit-scrollbar": {
