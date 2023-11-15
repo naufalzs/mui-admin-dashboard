@@ -1,4 +1,4 @@
-import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import { Box, Container, CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Topbar from "./components/page/global/Topbar";
 import Sidebar from "./components/page/global/Sidebar";
@@ -15,13 +15,23 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline>
-          <div className="app">
+          <Container
+            maxWidth="xl"
+            disableGutters
+            sx={{ height: "100vh", display: "flex", position: "relative" }}
+          >
             <BrowserRouter>
               <Sidebar
                 toggleSidebar={toggleSidebar}
                 setToggleSidebar={setToggleSidebar}
               />
-              <main className="content">
+              <Box sx={{
+                overflowX: "hidden",
+                overflowY: "auto",
+                "&::-webkit-scrollbar": {
+                  width: 0
+                }
+              }}>
                 <Topbar
                   toggleSidebar={toggleSidebar}
                   setToggleSidebar={setToggleSidebar}
@@ -29,9 +39,9 @@ function App() {
                 <Box p="20px">
                   <AppRoutes />
                 </Box>
-              </main>
+              </Box>
             </BrowserRouter>
-          </div>
+          </Container>
         </CssBaseline>
       </ThemeProvider>
     </ColorModeContext.Provider>
