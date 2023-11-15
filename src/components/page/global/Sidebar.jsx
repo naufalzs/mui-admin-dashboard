@@ -31,7 +31,7 @@ const SectionTitle = ({ title }) => {
   );
 };
 
-const Item = ({ title, to, icon }) => {
+const Item = ({ title, to, icon, setToggleSidebar }) => {
   const location = useLocation();
 
   return (
@@ -39,6 +39,9 @@ const Item = ({ title, to, icon }) => {
       active={location.pathname === to}
       icon={<Icon baseClassName="material-icons-outlined">{icon}</Icon>}
       component={<Link to={to} />}
+      onClick={() => {
+        setToggleSidebar(false);
+      }}
     >
       <Typography>{title}</Typography>
     </MenuItem>
@@ -58,7 +61,13 @@ export default function Sidebar({ toggleSidebar, setToggleSidebar }) {
     <Box key={navGroup.id}>
       <SectionTitle title={navGroup.title} />
       {navGroup.list.map((nav) => (
-        <Item key={nav.id} title={nav.title} to={nav.to} icon={nav.icon} />
+        <Item
+          key={nav.id}
+          title={nav.title}
+          to={nav.to}
+          icon={nav.icon}
+          setToggleSidebar={setToggleSidebar}
+        />
       ))}
     </Box>
   ));
